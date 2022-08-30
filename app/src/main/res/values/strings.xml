@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">SetupWizardExt</string>
+    <string name="dtt_search">Channel Search</string>
+    <string name="terrestrial">Terrestrial</string>
+    <string name="cable">Cable</string>
+    <string name="satellite">Satellite</string>
+    <string name="install_app_lable">Install App</string>
+    <string name="configuration_auth">Configuration Authority</string>
+    <string name="terms">Terms and Conditions</string>
+    <string name="country_hint2">Please select your region or country</string>
+    <string name="country_hint1">Region/Country</string>
+    <string name="terms_msg">These terms and conditions apply to this devices ability
+    to use connected Tv services, including the Freeview play service, which are hosted and maintained
+    by the device manufacturer and its sub-contractors and/or subsidiaries</string>
+    <string name="terms_msg1">Many of the devices features, include all FreeView Play content,will
+    only be acessible if you accept the terms and conditions. Please click the Terms and Conditions
+        button on thte right in order to review the terms and then click Accept</string>
+    <string name="terms_msg2">you can return to this screen at any time to review these terms and
+    conditions</string>
+</resources>

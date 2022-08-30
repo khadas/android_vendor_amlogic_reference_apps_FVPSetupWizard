@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
+    package="com.droidlogic.setupwizardext">
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".InstallAppActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegionCountryActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.setupwizard.action.HOOK_END" />
+                <action android:name="com.droidlogic.setupwizardext.TEST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ConfigAuthorityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChannelSearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".TermActivity"
+            android:exported="false">
+
+        </activity>
+
+        <receiver
+            android:name=".SetupReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.tvsetup.action.PARTNER_CUSTOMIZATION" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.PRE.BOOT_COMPLETED" />
+                <action android:name="com.android.setupwizard.action.PARTNER_CUSTOMIZATION" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

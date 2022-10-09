@@ -28,6 +28,7 @@ public class InstallAppActivity extends Activity implements View.OnClickListener
     private SeekBar seekBar;
     private String[] apkFileList = null;
     private int i = 1;
+    private File[] fList;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -36,13 +37,12 @@ public class InstallAppActivity extends Activity implements View.OnClickListener
             switch (msg.what) {
                 case 1:
                     Log.d(TAG, "seekbar");
-                    tvProcess.setText(i+"/"+"12");
+                    tvProcess.setText(i + "/" + fList.length);
                     seekBar.setProgress(i++);
-                    if (i == 13) {
+                    if (i == fList.length + 1) {
                         btInstallFinish.setFocusable(true);
                         mHandler.removeMessages(1);
-                        setResult(Activity.RESULT_OK);
-                        System.exit(0);
+                        MyApplication.instance.exit();
                     }
                     break;
             }
@@ -52,6 +52,7 @@ public class InstallAppActivity extends Activity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_install_app);
+        MyApplication.getInstance().addActivity(this);
         seekBar = findViewById(R.id.seekBar);
         btInstallFinish = findViewById(R.id.bt_install_finish);
         tvProcess = findViewById(R.id.tv_process);
@@ -79,7 +80,7 @@ public class InstallAppActivity extends Activity implements View.OnClickListener
             public void run() {
                 try {
                     File file = new File("/product/preinstall/");
-                    File[] fList = file.listFiles();
+                    fList = file.listFiles();
                     Log.d(TAG, fList.length+"--");
                     for (int i = 0; i< fList.length; i++) {
                         if (fList[i].isFile()) {
@@ -100,8 +101,7 @@ public class InstallAppActivity extends Activity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_install_finish:
-                setResult(Activity.RESULT_OK);
-                System.exit(0);
+                MyApplication.instance.exit();
                 break;
         }
     }

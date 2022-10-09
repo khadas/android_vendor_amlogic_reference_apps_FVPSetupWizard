@@ -23,6 +23,9 @@
         <permission name="android.permission.CONNECTIVITY_INTERNAL" />
         <permission name="android.permission.ACCESS_CACHE_FILESYSTEM" />
         <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
-        <permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+	<permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+        <permission name="uk.co.freeview.fvpconfigauth.FVP_CONFIG_READ"/>
+        <permission name="uk.co.freeview.fvpconfigauth.FVP_CONFIG_WRITE"/>
+        <permission name="uk.co.freeview.permission.ON_NOW_INTEGRATIONS"/>
     </privapp-permissions>
 </permissions>

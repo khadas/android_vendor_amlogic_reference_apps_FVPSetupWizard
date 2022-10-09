@@ -1,0 +1,11 @@
+java_import {
+        name: "inputsource2",
+        jars: ["inputsource.jar"],
+
+}
+
+android_library_import {
+        name: "stv-debug",
+	aars: ["stv-debug.aar"],
+	sdk_version: "current",
+}

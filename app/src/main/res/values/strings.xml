@@ -17,4 +17,8 @@
         button on thte right in order to review the terms and then click Accept</string>
     <string name="terms_msg2">you can return to this screen at any time to review these terms and
     conditions</string>
+
+    <string name="search_hint">Are you sure to skip this step</string>
+    <string name="ok">OK</string>
+    <string name="cancle">Cancle</string>
 </resources>

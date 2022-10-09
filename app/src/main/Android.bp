@@ -8,11 +8,18 @@ prebuilt_etc {
 
 android_app {
     name: "FVPSetupWizard",
-   // system_ext_specific: true,
-   // platform_apis: true,
+    //system_ext_specific: true,
+    //platform_apis: true,
     resource_dirs: ["res"],
     srcs: ["**/*.java"],
 
+    enforce_uses_libs: false,
+    dex_preopt: {
+        enabled: false,
+    },
+    optimize: {
+        enabled: false,
+    },
     //proprietary: true,
     privileged: true,
     certificate: "platform",
@@ -24,5 +31,7 @@ android_app {
     		"androidx.appcompat_appcompat",
     		"androidx.leanback_leanback",
     		"androidx-constraintlayout_constraintlayout",
+                "inputsource2",
+                "stv-debug",
     	],
 }

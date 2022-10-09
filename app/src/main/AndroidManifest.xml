@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.system"
-    package="com.droidlogic.setupwizardext">
+	  android:sharedUserId="android.uid.system"
+	  package="com.droidlogic.setupwizardext">
 
     <uses-feature
         android:name="android.software.leanback"
@@ -9,15 +9,25 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="uk.co.freeview.fvpconfigauth.FVP_CONFIG_READ"/>
+    <uses-permission android:name="uk.co.freeview.fvpconfigauth.FVP_CONFIG_WRITE"/>
+    <uses-permission android:name="uk.co.freeview.permission.ON_NOW_INTEGRATIONS"/>
 
     <application
         android:allowBackup="true"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
+
+	<uses-library android:name="droidlogic.software.core" />
+        <uses-library android:name="droidlogic.tv.software.core" />
+        <uses-library
+            android:name="droidlogic.dtvkit.software.core"
+            android:required="false" />
         <activity
             android:name=".InstallAppActivity"
             android:exported="false" />

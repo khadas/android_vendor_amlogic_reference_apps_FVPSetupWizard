@@ -13,18 +13,22 @@ import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 
+import com.droidlogic.stv.service.fvp.FVPManager;
+
 import java.util.ArrayList;
 
 public class TermActivity extends Activity implements View.OnClickListener {
     private Button termAccept;
     private Button termSkip;
     private Button termDetail;
+    private FVPManager fvpManager;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication.getInstance().addActivity(this);
         termAccept = findViewById(R.id.bt_term_accept);
         termSkip = findViewById(R.id.bt_term_skip);
         termDetail = findViewById(R.id.bt_term_detail);
@@ -32,7 +36,7 @@ public class TermActivity extends Activity implements View.OnClickListener {
         termSkip.setOnClickListener(this);
         termDetail.setOnClickListener(this);
 
-
+        fvpManager = new FVPManager("FVPManager");
         final Uri CONTENT_URI = Uri.parse("content://com.google.android.tungsten.setupwraith.locales/localeprefs");
 
         ArrayList<String> preferredLocalesList = new ArrayList<>();
@@ -84,6 +88,7 @@ public class TermActivity extends Activity implements View.OnClickListener {
             case R.id.bt_term_accept:
             case R.id.bt_term_detail:
                 ConfigAuthUtils.setToU(getContentResolver(), true);
+                fvpManager.setTouStatus(1);
                 Intent intent = new Intent();
                 intent.setClass(TermActivity.this, ChannelSearchActivity.class);
                 startActivity(intent);
@@ -92,12 +97,11 @@ public class TermActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.bt_term_skip:
                 ConfigAuthUtils.setToU(getContentResolver(), false);
+                fvpManager.setTouStatus(0);
                 Intent intent2 = new Intent();
                 intent2.setClass(TermActivity.this, ChannelSearchActivity.class);
                 startActivity(intent2);
                 break;
-
-
         }
     }
 

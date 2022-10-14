@@ -21,6 +21,7 @@ public class RegionCountryActivity extends Activity {
     private TextView countryDescribe;
     private CountryAdapter countryAdapter;
     private List<String> mList = new ArrayList<>();
+    private CountrySetHelper countrySetHelper;
     public static final String REQ_TOU = "FVP_TOU_MSG";
     public static final String INTENT_REQUEST = "Request";
     public static final String UK = "United Kingdom";
@@ -31,6 +32,7 @@ public class RegionCountryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_region_country);
         MyApplication.getInstance().addActivity(this);
+        countrySetHelper = new CountrySetHelper(this);
         countryList = findViewById(R.id.country_list);
         countryDescribe = findViewById(R.id.country_describe);
         initData();
@@ -42,8 +44,19 @@ public class RegionCountryActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d(TAG, mList.get(i));
+                countrySetHelper.setCountryCodeByIndex(i);
                 Intent intent = new Intent();
                 if (mList.get(i).equals(UK)) {
+                    ConfigAuthUtils.setNid(getContentResolver(), 65535);
+                    ConfigAuthUtils.setTvInfo(getContentResolver(), "1.6.1",
+                            "Mozilla/5.0 (Linux; Andr0id 11; T3) AppleWebKit/537.36 " +
+                                    "(KHTML, like Gecko) Chrome/102.0.5005.52 " +
+                                    "Safari/537.36 OPR/46.0.2207.0 OMI/4.23.0.244.master " +
+                                    "HbbTV/1.6.1 (+DRM; Amlogic; T965D4; 1.0; 1.0; T3;) " +
+                                    "FVC/8.0 (Amlogic; T3;)", "https://auth.uat.freeviewplay.net");
+                    ConfigAuthUtils.setSigning(getContentResolver());
+                    ConfigAuthUtils.setReceivers(getContentResolver());
+
                     ComponentName componentName = new ComponentName("com.droidlogic.android.tv",
                             "com.android.tv.fvp.FvpIntentHandleActivity");
                     intent.putExtra(INTENT_REQUEST, REQ_TOU);

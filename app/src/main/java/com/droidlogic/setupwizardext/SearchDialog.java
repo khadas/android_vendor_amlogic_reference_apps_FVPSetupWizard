@@ -13,10 +13,14 @@ public class SearchDialog extends BaseDialog implements View.OnClickListener{
     private Button SearchOK;
     private Button SearchCancle;
     private Context context;
+    private boolean isUK;
+    private static final String FVP_ACTION = "com.android.tv.fvp.INTENT_ACTION";
+    private static final String FVP_ACTION_TYPE = "scan_action";
 
-    public SearchDialog(Context context) {
+    public SearchDialog(Context context, boolean isUK) {
         super(context);
         this.context = context;
+        this.isUK = isUK;
         setCancelable(false);
     }
 
@@ -49,12 +53,21 @@ public class SearchDialog extends BaseDialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_dialog_ok:
-                Intent intent = new Intent();
-                intent.setClass(mContext, InstallAppActivity.class);
-                context.startActivity(intent);
+                Intent intent2 = new Intent();
+                intent2.setAction(FVP_ACTION);
+                intent2.putExtra("FVP_TYPE", FVP_ACTION_TYPE);
+                context.sendBroadcast(intent2);
+                if (isUK) {
+                    Intent intent1 = new Intent();
+                    intent1.setClass(context, InstallAppActivity.class);
+                    context.startActivity(intent1);
+                } else {
+                    MyApplication.instance.exit();
+                }
                 dismiss();
                 break;
             case R.id.search_dialog_cancle:
+
                 dismiss();
                 break;
         }

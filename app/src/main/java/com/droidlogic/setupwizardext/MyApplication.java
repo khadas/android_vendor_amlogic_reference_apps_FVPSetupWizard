@@ -27,6 +27,7 @@ public class MyApplication extends Application {
         for (Activity activity:mList) {
             if (activity != null) {
                 activity.finish();
+                activity.overridePendingTransition(0, 0);
             }
         }
     }

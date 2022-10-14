@@ -11,6 +11,7 @@ import android.media.tv.TvInputManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class ChannelSearchActivity extends Activity implements View.OnClickListener {
@@ -20,6 +21,9 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
     private Button btSatellite;
     private boolean isUK;
     private SearchDialog searchDialog;
+    private TextView terrestrialNum;
+    private TextView cableNum;
+    private TextView satelliteNum;
     private static final String FVP_ACTION = "com.android.tv.fvp.INTENT_ACTION";
     private static final String FVP_ACTION_TYPE = "scan_action";
     public static final String REQ_SCAN = "FVP_CHN_SCN";
@@ -36,12 +40,15 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
         btTerrestrial = findViewById(R.id.bt_terrestrial);
         btCable = findViewById(R.id.bt_cable);
         btSatellite = findViewById(R.id.bt_satellite);
+        terrestrialNum = findViewById(R.id.terrestrial_num);
+        cableNum = findViewById(R.id.cable_num);
+        satelliteNum = findViewById(R.id.satellite_num);
         channelSkip.setOnClickListener(this);
         btTerrestrial.setOnClickListener(this);
         btCable.setOnClickListener(this);
         btSatellite.setOnClickListener(this);
-
         isUK = getIntent().getBooleanExtra("country_tag" ,true);
+        setNum();
     }
 
     @Override
@@ -68,7 +75,7 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
                 lunchDtvKitInputSource("satellite", 1004);
                 break;
             case R.id.bt_channel_skip:
-                searchDialog = new SearchDialog(ChannelSearchActivity.this);
+                searchDialog = new SearchDialog(ChannelSearchActivity.this, isUK);
                 searchDialog.showSearchDislog();
                 break;
         }
@@ -87,28 +94,13 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001 || requestCode == 1002 || requestCode == 1003 ||
                 requestCode == 1004) {
-            ConfigAuthUtils.setNid(getContentResolver(), 65535);
-            ConfigAuthUtils.setTvInfo(getContentResolver(), "1.6.1",
-                    "Mozilla/5.0 (Linux; Andr0id 11; T3) AppleWebKit/537.36 " +
-                            "(KHTML, like Gecko) Chrome/102.0.5005.52 " +
-                            "Safari/537.36 OPR/46.0.2207.0 OMI/4.23.0.244.master " +
-                            "HbbTV/1.6.1 (+DRM; Amlogic; T965D4; 1.0; 1.0; T3;) " +
-                            "FVC/8.0 (Amlogic; T3;)", "https://auth.uat.freeviewplay.net");
-            ConfigAuthUtils.setSigning(getContentResolver());
-            ConfigAuthUtils.setReceivers(getContentResolver());
-
-            Intent intent2 = new Intent();
-            intent2.setAction(FVP_ACTION);
-            intent2.putExtra("FVP_TYPE", FVP_ACTION_TYPE);
-            sendBroadcast(intent2);
-            if (isUK) {
-                Intent intent1 = new Intent();
-                intent1.setClass(ChannelSearchActivity.this, InstallAppActivity.class);
-                startActivity(intent1);
-            } else {
-                MyApplication.instance.exit();
-            }
-
+            setNum();
         }
+    }
+
+    private void setNum() {
+        terrestrialNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_T")));
+        cableNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_C")));
+        satelliteNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_S")));
     }
 }

@@ -16,6 +16,12 @@ public class CountrySetHelper {
         controller = DtvKitController.getInstance(context);
     }
 
+    public void unbind() {
+        if (controller != null) {
+            controller.unBindService();
+        }
+    }
+
     private JSONObject setCountry(int countryCode) {
         JSONObject resultObj = null;
         try {

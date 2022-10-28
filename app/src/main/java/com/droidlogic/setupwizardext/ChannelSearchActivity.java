@@ -24,6 +24,7 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
     private TextView terrestrialNum;
     private TextView cableNum;
     private TextView satelliteNum;
+    private boolean isSearch;
     private static final String FVP_ACTION = "com.android.tv.fvp.INTENT_ACTION";
     private static final String FVP_ACTION_TYPE = "scan_action";
     public static final String REQ_SCAN = "FVP_CHN_SCN";
@@ -75,8 +76,22 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
                 lunchDtvKitInputSource("satellite", 1004);
                 break;
             case R.id.bt_channel_skip:
-                searchDialog = new SearchDialog(ChannelSearchActivity.this, isUK);
-                searchDialog.showSearchDislog();
+                if (isSearch) {
+                    Intent intent2 = new Intent();
+                    intent2.setAction(FVP_ACTION);
+                    intent2.putExtra("FVP_TYPE", FVP_ACTION_TYPE);
+                    sendBroadcast(intent2);
+                    if (isUK) {
+                        Intent intent1 = new Intent();
+                        intent1.setClass(this, InstallAppActivity.class);
+                        startActivity(intent1);
+                    } else {
+                        MyApplication.instance.exit();
+                    }
+                } else {
+                    searchDialog = new SearchDialog(ChannelSearchActivity.this, isUK);
+                    searchDialog.showSearchDislog();
+                }
                 break;
         }
     }
@@ -94,6 +109,8 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001 || requestCode == 1002 || requestCode == 1003 ||
                 requestCode == 1004) {
+            isSearch = true;
+            channelSkip.setText(getResources().getText(R.string.search_continue));
             setNum();
         }
     }

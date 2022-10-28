@@ -14,6 +14,8 @@ public class SearchDialog extends BaseDialog implements View.OnClickListener{
     private Button SearchCancle;
     private Context context;
     private boolean isUK;
+    private CountrySetHelper countrySetHelper;
+    public static final String UK = "gbr";
     private static final String FVP_ACTION = "com.android.tv.fvp.INTENT_ACTION";
     private static final String FVP_ACTION_TYPE = "scan_action";
 
@@ -36,6 +38,7 @@ public class SearchDialog extends BaseDialog implements View.OnClickListener{
         SearchCancle = findViewById(R.id.search_dialog_cancle);
         SearchOK.setOnClickListener(this);
         SearchCancle.setOnClickListener(this);
+        countrySetHelper = new CountrySetHelper(context);
     }
 
     @Override
@@ -57,7 +60,7 @@ public class SearchDialog extends BaseDialog implements View.OnClickListener{
                 intent2.setAction(FVP_ACTION);
                 intent2.putExtra("FVP_TYPE", FVP_ACTION_TYPE);
                 context.sendBroadcast(intent2);
-                if (isUK) {
+                if (countrySetHelper.getCurrentCountryIso3Name().equals(UK)) {
                     Intent intent1 = new Intent();
                     intent1.setClass(context, InstallAppActivity.class);
                     context.startActivity(intent1);

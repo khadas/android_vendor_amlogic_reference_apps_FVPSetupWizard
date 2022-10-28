@@ -24,7 +24,7 @@ public class RegionCountryActivity extends Activity {
     private CountrySetHelper countrySetHelper;
     public static final String REQ_TOU = "FVP_TOU_MSG";
     public static final String INTENT_REQUEST = "Request";
-    public static final String UK = "United Kingdom";
+    public static final String UK = "gbr";
 
     private String TAG = "RegionCountry";
     @Override
@@ -46,7 +46,7 @@ public class RegionCountryActivity extends Activity {
                 Log.d(TAG, mList.get(i));
                 countrySetHelper.setCountryCodeByIndex(i);
                 Intent intent = new Intent();
-                if (mList.get(i).equals(UK)) {
+                if (countrySetHelper.getCurrentCountryIso3Name().equals(UK)) {
                     ConfigAuthUtils.setNid(getContentResolver(), 65535);
                     ConfigAuthUtils.setTvInfo(getContentResolver(), "1.6.1",
                             "Mozilla/5.0 (Linux; Andr0id 11; T3) AppleWebKit/537.36 " +
@@ -96,5 +96,11 @@ public class RegionCountryActivity extends Activity {
             intent.setClass(RegionCountryActivity.this, ChannelSearchActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countrySetHelper.unbind();
     }
 }

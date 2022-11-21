@@ -52,11 +52,6 @@
         <activity
             android:name=".ChannelSearchActivity"
             android:exported="true" />
-        <activity
-            android:name=".TermActivity"
-            android:exported="false">
-
-        </activity>
 
         <receiver
             android:name=".SetupReceiver"

@@ -116,8 +116,12 @@ public class ChannelSearchActivity extends Activity implements View.OnClickListe
     }
 
     private void setNum() {
-        terrestrialNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_T")));
-        cableNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_C")));
-        satelliteNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_S")));
+        terrestrialNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_T")
+            + DbHelper.getChannelNum(this, "TYPE_DVB_T2")));
+        cableNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_C")
+            + DbHelper.getChannelNum(this, "TYPE_DVB_C2")));
+        satelliteNum.setText(String.valueOf(DbHelper.getChannelNum(this, "TYPE_DVB_S")
+            + DbHelper.getChannelNum(this, "TYPE_DVB_S2")
+            + DbHelper.getChannelNum(this, "TYPE_DVB_SH")));
     }
 }

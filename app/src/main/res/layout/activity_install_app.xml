@@ -57,6 +57,7 @@
             android:layout_width="230dp"
             android:paddingLeft="4dp"
             android:textStyle="normal"
+            android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:text="FINISH" />
     </LinearLayout>

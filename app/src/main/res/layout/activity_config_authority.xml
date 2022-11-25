@@ -34,6 +34,7 @@
             android:paddingLeft="4dp"
             android:textSize="12sp"
             android:textStyle="normal"
+            android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:text="Authority" />
         <Button
@@ -44,6 +45,7 @@
             android:paddingLeft="4dp"
             android:textSize="12sp"
             android:textStyle="normal"
+            android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:text="Skip" />
     </LinearLayout>

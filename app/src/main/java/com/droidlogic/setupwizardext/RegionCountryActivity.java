@@ -49,11 +49,11 @@ public class RegionCountryActivity extends Activity {
                 if (countrySetHelper.getCurrentCountryIso3Name().equals(UK)) {
                     ConfigAuthUtils.setNid(getContentResolver(), 65535);
                     ConfigAuthUtils.setTvInfo(getContentResolver(), "1.6.1",
-                            "Mozilla/5.0 (Linux; Andr0id 11; T3) AppleWebKit/537.36 " +
-                                    "(KHTML, like Gecko) Chrome/102.0.5005.52 " +
-                                    "Safari/537.36 OPR/46.0.2207.0 OMI/4.23.0.244.master " +
-                                    "HbbTV/1.6.1 (+DRM; Amlogic; T965D4; 1.0; 1.0; T3;) " +
-                                    "FVC/8.0 (Amlogic; T3;)", "https://auth.uat.freeviewplay.net");
+                            "Mozilla/5.0 (Linux; Andr0id 11; smith) " +
+                                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                                    "Chrome/104.0.5112.57 Safari/537.36 OPR/46.0.2207.0 " +
+                                    "OMI/4.23.1.64.DAV.14 HbbTV/1.6.1 (+DRM; Amlogic; smith; 1.0; 1.0; ohm;) " +
+                                    "FVC/8.0 (Amlogic; ohm;)", "https://auth.uat.freeviewplay.net");
                     ConfigAuthUtils.setSigning(getContentResolver());
                     ConfigAuthUtils.setReceivers(getContentResolver());
 
